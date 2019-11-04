@@ -1,5 +1,6 @@
-@using PetTinderMVC.ViewModels
-@model RegisterViewModel
+@*
+@using PetTinderMVC.Models;
+@model RegisterViewModel;
 <h2>Register a new user</h2>
 <hr />
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
@@ -12,3 +13,4 @@
     @Html.PasswordFor(user=> user.ConfirmPassword)
     <input type="submit" value="Register" />
 }
+*@
