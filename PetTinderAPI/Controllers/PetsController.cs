@@ -105,5 +105,21 @@ namespace PetTinderAPI.Controllers
             FileStream stream = System.IO.File.Open(@path, System.IO.FileMode.Open);
             return File(stream, "image/jpg");
         }
+
+        [HttpPost("{id}/upload")]
+        public async Task Upload([FromForm] IFormFile file, int id)
+        {
+            System.Console.WriteLine(">>>>>>   UPLOAD TRIGGERED   <<<<<<");
+            Pet pet = _db.Pets.FirstOrDefault(entry => entry.PetId == id);
+            var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads", $"{pet.Name.ToLower()}{pet.PetId}");
+            System.Console.WriteLine(">>>>>>    PATH: " + uploads);
+            if(file.Length > 0)
+            {
+                using(var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+            }
+        }
     }
 }
