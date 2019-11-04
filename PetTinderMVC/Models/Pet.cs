@@ -20,7 +20,31 @@ namespace PetTinderMVC.Models
         public ICollection<Pet> Interested { get; set; } //list of pets I've swiped right on
         public ICollection<Pet> Matches { get; set; } //list of pets I've matched with (both pets swiped right)
 
-        
+        public static List<Pet> GetPets()
+        {
+            var apiCallTask = ApiHelper.ApiCall(0);
+            var result = apiCallTask.Result;
+
+            JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+            List<Pet> petList = JsonConvert.DeserializeObject<List<Pet>>(jsonResponse.ToString());
+            return petList;
+        }
+
+        public static Pet GetPet(int id)
+        { 
+            var apiCallTask = ApiHelper.ApiCall(id);
+            var result = apiCallTask.Result;
+
+            JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+            Pet pet = JsonConvert.DeserializeObject<Pet>(jsonResponse.ToString());
+            return pet;
+        }
+
+        public static async Task<int> EditPet(Pet pet)
+        {
+            var apiCallTask = await ApiHelper.ApiCallEditPet(pet);
+            return pet.PetId;
+        }
 
     }
 }
