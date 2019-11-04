@@ -31,5 +31,23 @@ namespace PetTinderMVC.Models
             var response = await client.ExecuteTaskAsync(request);
             return response.Content;
         }
+
+        public static async Task<string> ApiCallCreatePet(Pet pet)
+        {
+            RestClient client = new RestClient($"http://localhost:5000/api/pets/");
+            RestRequest request = new RestRequest("/", Method.POST);
+            request.AddJsonBody(pet);
+            var response = await client.ExecuteTaskAsync(request);
+            return response.Content;
+        }
+
+        public static async Task<string> ApiCallDeletePet(Pet pet)
+        {
+            RestClient client = new RestClient($"http://localhost:5000/api/pets/{pet.PetId}");
+            RestRequest request = new RestRequest("/", Method.DELETE);
+            request.AddJsonBody(pet);
+            var response = await client.ExecuteTaskAsync(request);
+            return response.Content;
+        }
     }
 }

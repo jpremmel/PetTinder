@@ -43,5 +43,17 @@ namespace PetTinderMVC.Controllers
             await Pet.EditPet(pet);
             return RedirectToAction("Details", new { id = pet.PetId });
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Pet pet)
+        {
+            await Pet.CreatePet(pet);
+            return RedirectToAction("Details", new { id = pet.PetId });
+        }
     }
 }

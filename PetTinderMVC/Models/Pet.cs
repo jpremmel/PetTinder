@@ -47,5 +47,17 @@ namespace PetTinderMVC.Models
             return pet.PetId;
         }
 
+        public static async Task<int> CreatePet(Pet pet)
+        {
+            var apiCallTask = await ApiHelper.ApiCallCreatePet(pet);
+            return pet.PetId;
+        }
+
+        public static async Task<int> DeletePet(Pet pet)
+        {
+            var apiCallTask = await ApiHelper.ApiCallDeletePet(pet);
+            return pet.PetId;
+        }
+
     }
 }
