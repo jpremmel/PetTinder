@@ -96,5 +96,14 @@ namespace PetTinderAPI.Controllers
             
             return query.ToList();
         }
+
+        [HttpGet("{id}/photo")]
+        public IActionResult GetPhoto(int id)
+        {
+            Pet pet = _db.Pets.FirstOrDefault(entry => entry.PetId == id);
+            string path = $"wwwroot/uploads/{pet.Name.ToLower()}{pet.PetId}/{pet.Name.ToLower()}_{pet.PetId}_1.jpg";
+            FileStream stream = System.IO.File.Open(@path, System.IO.FileMode.Open);
+            return File(stream, "image/jpg");
+        }
     }
 }

@@ -16,7 +16,6 @@ namespace PetTinderAPI.Models
         public string LookingFor { get; set; }
         // public ICollection<Pet> Interested { get; set; } //list of pets I've swiped right on
         // public ICollection<Pet> Matches { get; set; } //list of pets I've matched with (both pets swiped right)
-
         
     }
 }
