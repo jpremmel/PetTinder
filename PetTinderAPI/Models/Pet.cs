@@ -18,6 +18,5 @@ namespace PetTinderAPI.Models
         // public ICollection<Pet> Matches { get; set; } //list of pets I've matched with (both pets swiped right)
 
         
-
     }
 }
