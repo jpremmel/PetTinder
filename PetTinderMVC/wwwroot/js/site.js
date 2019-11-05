@@ -1,4 +1,11 @@
-﻿(function () {
+﻿// (function(){
+// ("#but-nope").click(function(){
+//     ('.is-nope').show();
+// });
+// });
+
+
+(function () {
     var animating = false;
 
     function animatecard(ev) {
@@ -6,7 +13,9 @@
             var t = ev.target;
             if (t.className === 'but-nope') {
                 t.parentNode.classList.add('nope');
+
                 animating = true;
+              
                 fireCustomEvent('nopecard',
                     {
                         origin: t,
@@ -86,3 +95,17 @@
         document.body.classList.add('tinderesque');
     });
 })();
+
+$(document).ready(function() {
+    $("#but-nope").click(function () {
+        $('.is-nope').show(function () {
+            $('.is-nope').hide();
+        });
+    });
+
+    $("#but-yay").click(function () {
+        $('.is-approved').show(function() {
+            $('.is-approved').hide();
+        });
+    });
+})

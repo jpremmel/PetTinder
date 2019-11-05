@@ -45,6 +45,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: 'Chicle', cursive;
+  background-color: pink;
 }
 .footer {
   position: absolute;
@@ -197,4 +198,75 @@ body {
     -webkit-transform: rotate(-40deg) translateY(-80px);
     opacity: 0;
   }
+}
+/* THIS IS THE CSS FOR THE STAMP ANIMATIONS */
+
+.stamp {
+  transform: rotate(12deg);
+	color: #555;
+	font-size: 3rem;
+	font-weight: 700;
+	border: 0.25rem solid #555;
+	display: inline-block;
+	padding: 0.25rem 1rem;
+	border-radius: 1rem;
+	font-family: 'Courier';
+	-webkit-mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+  -webkit-mask-size: 944px 604px;
+  mix-blend-mode: multiply;
+}
+.stamp{
+ 
+  border-radius:5px;
+  position:relative;
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+  
+  /* -webkit-animation-delay:0.5s; */
+  -webkit-animation-duration: 0.5s;
+  /* animation-duration: 0.5s; */
+  opacity: 0;
+  /* -webkit-animation-fill-mode:forwards; */
+   animation-fill-mode:forwards;
+}
+
+
+
+@-webkit-keyframes pulse{
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity:.50;
+    transform-origin: 50% 50%;
+    transform: rotate(-2deg) scale(5);
+    transition: all .3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  }
+  100%{
+    opacity:1;
+    transform: rotate(-15deg) scale(1);
+  }
+}
+
+.is-nope {
+  color: #D23;
+  border: 0.5rem double #D23;
+  transform: rotate(3deg);
+	-webkit-mask-position: 2rem 3rem;
+  font-size: 2rem;  
+}
+
+.is-approved {
+	color: #0A9928;
+	border: 0.5rem solid #0A9928;
+	-webkit-mask-position: 13rem 6rem;
+	transform: rotate(-14deg);
+  border-radius: 0;
+} 
+.is-nope{
+     display: none;
+}
+
+.is-approved{
+     display: none;
 }

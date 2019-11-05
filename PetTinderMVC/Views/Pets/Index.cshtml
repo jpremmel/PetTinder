@@ -4,6 +4,7 @@
 @using PetTinderMVC.Models;
 @model  List<PetTinderMVC.Models.Pet>;
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,15 +54,31 @@
     <div class="cardcontainer list">
       <ul class="cardlist">
         <li class="card current"><img src="~/img/racoon.jpg" height="800" width="600"></li>
-        
+        <div class="bio current">
+          <span class="stamp is-nope">DENIED</span>
+          <span class="stamp is-approved">LIKE</span>
+
+        <h3>Bandit, 7</h3>
+        <p>I'm looking for a dumpster-diving partner-in-crime.</p>
+        </div>
         @foreach(Pet pet in Model)
         {
-        <li class="card">@pet.Name</li>
-        <li class="bio">@pet.Bio</li>
+        <li class="card"> <span class="stamp is-nope">DENIED</span>          <span class="stamp is-approved">LIKE</span></li>
+        <div class="bio">
+        <h3>@pet.Name, @pet.Age
+          
+
+        </h3>
+      
+        <p>@pet.Bio</p>
+        </div>
+        
         } 
       </ul>
-      <button class="but-nope">X</button>
-      <button class="but-yay">✔</button>
+      
+
+      <button class="but-nope" id="but-nope">X</button>
+      <button class="but-yay" id="but-yay">✔</button>
     </div>
 
   </section>
