@@ -102,10 +102,26 @@ namespace PetTinderAPI.Controllers
         }
 
         [HttpGet("{id}/photo")]
-        public IActionResult GetPhoto(int id)
+        public IActionResult GetPhoto(int id, int photo)
         {
             Pet pet = _db.Pets.FirstOrDefault(entry => entry.PetId == id);
-            string path = $"wwwroot/uploads/{pet.Name.ToLower()}{pet.PetId}/{pet.Name.ToLower()}_{pet.PetId}_1.jpg";
+            string path = "";
+            if (photo == 1)
+            {
+                path = pet.Photo1;
+            }
+            else if (photo == 2)
+            {
+                path = pet.Photo2;
+            }
+            else if (photo == 3)
+            {
+                path = pet.Photo3;
+            }
+            else if (photo == 4)
+            {
+                path = pet.Photo4;
+            }
             FileStream stream = System.IO.File.Open(@path, System.IO.FileMode.Open);
             return File(stream, "image/jpg");
         }
