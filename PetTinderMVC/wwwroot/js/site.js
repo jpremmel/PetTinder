@@ -73,6 +73,7 @@
                     });
                 } else {
                     origin.querySelector('.card').classList.add('current');
+                    origin.querySelector('.bio').classList.add('current');
                 }
             }
         }

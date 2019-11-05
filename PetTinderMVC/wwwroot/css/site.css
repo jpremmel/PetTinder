@@ -75,8 +75,13 @@ body {
   background: #666;
   -webkit-transform-origin: 50% 99%; 
   transform-origin: 50% 99%;
-  
 }
+
+.bio {
+  display: none;
+}
+
+
 .cardcontainer {
   padding: 20px;
   text-align: center;
