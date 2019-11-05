@@ -111,14 +111,40 @@ namespace PetTinderAPI.Controllers
         }
 
         [HttpPost("{id}/upload")]
-        public async Task Upload([FromForm] IFormFile file, int id)
+        public async Task<string> Upload([FromForm] IFormFile file, int id)
         {
             System.Console.WriteLine(">>>>>>   UPLOAD TRIGGERED   <<<<<<");
+            string result;
             Pet pet = _db.Pets.FirstOrDefault(entry => entry.PetId == id);
             var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads", $"{pet.Name.ToLower()}{pet.PetId}");  //directory: wwwroot/uploads/{petname}{petid}
             var guid = Guid.NewGuid().ToString(); //create GUID to append to file name to make sure file names of uploaded photos don't clash
             string photoPath = $"wwwroot/uploads/{pet.Name.ToLower()}{pet.PetId}/{guid}{file.FileName}";
-            pet.Photos.Add(photoPath); //save the path to this photo in the pet's photos property
+            if (pet.Photo1 == null)
+            {
+                pet.Photo1 = photoPath;
+                result = "Photo 1 uploaded.";
+            }
+            else if (pet.Photo2 == null)
+            {
+                pet.Photo2 = photoPath;
+                result = "Photo 2 uploaded.";
+            }
+            else if (pet.Photo3 == null)
+            {
+                pet.Photo3 = photoPath;
+                result = "Photo 3 uploaded.";
+            }
+            else if (pet.Photo4 == null)
+            {
+                pet.Photo4 = photoPath;
+                result = "Photo 4 uploaded.";
+            }
+            else
+            {
+                result = "Too many photos!";
+            }
+            _db.Entry(pet).State = EntityState.Modified;
+            _db.SaveChanges();
             if(file.Length > 0)
             {
                 using(var fileStream = new FileStream(Path.Combine(uploads, $"{guid}{file.FileName}"), FileMode.Create))
@@ -126,6 +152,7 @@ namespace PetTinderAPI.Controllers
                     await file.CopyToAsync(fileStream);
                 }
             }
+            return result;
         }
     }
 }
