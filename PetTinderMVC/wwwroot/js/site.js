@@ -99,13 +99,14 @@
 $(document).ready(function() {
     $("#but-nope").click(function () {
         $('.is-nope').show(function () {
-            $('.is-nope').hide();
+            $('.is-nope').hide(20);
         });
     });
 
     $("#but-yay").click(function () {
         $('.is-approved').show(function() {
-            $('.is-approved').hide();
+            $('.is-approved').hide(20);
+           
         });
     });
 })
