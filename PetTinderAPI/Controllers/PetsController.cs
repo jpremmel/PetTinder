@@ -29,6 +29,9 @@ namespace PetTinderAPI.Controllers
         public void Post([FromBody] Pet pet)
         {
             _db.Pets.Add(pet);
+            //create pet's subdirectory for photos
+            var photoDirectory = Path.Combine(hostingEnvironment.WebRootPath, "uploads", $"{pet.Name.ToLower()}{pet.PetId}");
+            Directory.CreateDirectory(photoDirectory);
             _db.SaveChanges();
         }
 
