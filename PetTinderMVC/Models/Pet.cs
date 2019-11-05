@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace PetTinderMVC.Models
 {
@@ -21,6 +23,7 @@ namespace PetTinderMVC.Models
         public string Photo2 { get; set; }
         public string Photo3 { get; set; }
         public string Photo4 { get; set; }
+        public byte[] TestPhoto { get; set; }
         // public ICollection<Pet> Interested { get; set; } //list of pets I've swiped right on
         // public ICollection<Pet> Matches { get; set; } //list of pets I've matched with (both pets swiped right)
         public virtual ApplicationUser User { get; set; }
@@ -60,6 +63,14 @@ namespace PetTinderMVC.Models
         public static async Task<int> DeletePet(Pet pet)
         {
             var apiCallTask = await ApiHelper.ApiCallDeletePet(pet);
+            return pet.PetId;
+        }
+
+        public static async Task<int> GetPhoto(Pet pet, int photo)
+        {
+            System.Console.WriteLine(">>>>>>>>>>>> GOT TO: MVC PET.CS GETPHOTO METHOD <<<<<<<<<<<<<<<<<<<");
+            // var apiCallTask = 
+            pet.TestPhoto = await ApiHelper.ApiCallGetPhoto(pet, photo);
             return pet.PetId;
         }
 

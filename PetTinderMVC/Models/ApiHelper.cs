@@ -1,7 +1,10 @@
 using System.Threading.Tasks;
 using RestSharp;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 using PetTinderMVC.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace PetTinderMVC.Models
 {
@@ -49,5 +52,33 @@ namespace PetTinderMVC.Models
             var response = await client.ExecuteTaskAsync(request);
             return response.Content;
         }
+
+        public static async Task<byte[]> ApiCallGetPhoto(Pet pet, int photo)
+        {
+            System.Console.WriteLine(">>>>>>>>>>>> GOT TO: MVC API HELPER GET PHOTO METHOD <<<<<<<<<<<<<<<<<<<");
+            RestClient client = new RestClient($"http://localhost:5000/api/pets/{pet.PetId}/photo");
+            RestRequest request = new RestRequest("/", Method.GET);
+            request.AddParameter("id", pet.PetId);
+            request.AddParameter("photo", photo);
+            var response = await client.ExecuteTaskAsync(request);
+            System.Console.WriteLine(">>>>>>>RESPONSE TYPE: " + response.ContentType);
+            byte[] bytes = response.RawBytes;
+
+
+            
+            return bytes;
+        }
+
+        // public static async <string> ApiCallUploadPhoto(Pet pet)
+        // {
+        //     RestClient client = new RestClient($"http://localhost:5000/api/pets/{pet.PetId}/upload");
+        //     RestRequest request = new RestRequest("/", Method.POST);
+        //     request.AddHeader("Content-Type", "multipart/form-data");
+
+
+
+
+        // }
+
     }
 }
