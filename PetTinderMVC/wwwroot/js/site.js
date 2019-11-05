@@ -65,6 +65,7 @@
             if (ev.animationName === 'nope' ||
                 ev.animationName === 'yay') {
                 origin.querySelector('.current').remove();
+                origin.querySelector('.bio').remove();
                 if (!origin.querySelector('.card')) {
                     fireCustomEvent('deckempty', {
                         origin: origin.querySelector('button'),
