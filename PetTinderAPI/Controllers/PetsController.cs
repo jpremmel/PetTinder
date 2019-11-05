@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Drawing;
+using System;
 
 namespace PetTinderAPI.Controllers
 {
@@ -114,11 +115,13 @@ namespace PetTinderAPI.Controllers
         {
             System.Console.WriteLine(">>>>>>   UPLOAD TRIGGERED   <<<<<<");
             Pet pet = _db.Pets.FirstOrDefault(entry => entry.PetId == id);
-            var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads", $"{pet.Name.ToLower()}{pet.PetId}");
-            System.Console.WriteLine(">>>>>>    PATH: " + uploads);
+            var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads", $"{pet.Name.ToLower()}{pet.PetId}");  //directory: wwwroot/uploads/{petname}{petid}
+            var guid = Guid.NewGuid().ToString(); //create GUID to append to file name to make sure file names of uploaded photos don't clash
+            string photoPath = $"wwwroot/uploads/{pet.Name.ToLower()}{pet.PetId}/{guid}{file.FileName}";
+            pet.Photos.Add(photoPath); //save the path to this photo in the pet's photos property
             if(file.Length > 0)
             {
-                using(var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                using(var fileStream = new FileStream(Path.Combine(uploads, $"{guid}{file.FileName}"), FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
